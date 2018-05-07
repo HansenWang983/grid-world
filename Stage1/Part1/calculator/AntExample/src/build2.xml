@@ -1,0 +1,26 @@
+<project name="javaTest" default="jar" basedir="..">
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="build/classes"/>
+		<javac srcdir="src" destdir="build/classes"/>
+	</target>
+
+	<target name="run" depends="compile">
+		<java classname="helloworld">
+			<classpath>
+				<pathelement path="build/classes"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="jar" depends="run">
+		<jar destfile="helloworld.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-class" value="helloworld"/>
+			</manifest>
+		</jar>
+	</target>
+</project>

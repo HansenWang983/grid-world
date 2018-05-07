@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="helloworld" default="test" basedir="..">
+	<property name="lib.path" value="lib"/>
+	<path id="compile.path">
+		<fileset dir="${lib.path}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<pathelement path="bin/classes"/>
+	</path>
+	<path id="run.path">
+		<path refid="compile.path" />
+		<pathelement location="org" />
+	</path>
+	<target name="clean">
+		<delete dir="bin"/>
+	</target>
+	<target name="compile" depends="clean">
+		<mkdir dir="bin/classes"/>
+   		<javac srcdir="src" destdir="bin/classes" classpathref="compile.path" includeantruntime="false" />
+   		
+	</target>
+	<target name="run" depends="compile">
+   		<java classname="helloworld">
+   			<classpath refid="run.path" />
+   		</java>
+	</target>
+	<target name="test" depends="clean, compile">
+		<junit printsummary="true">
+			<classpath refid="compile.path"/>
+			<test name="helloworldTest"/>
+		</junit>
+	</target>
+</project>
